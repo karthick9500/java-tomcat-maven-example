@@ -56,7 +56,7 @@ stages {
                         label "build-server1"
                     }
                     steps {
-                        ValidateApp('http://35.154.222.77:8080/')
+                        ValidateApp('http://35.154.222.77:8080/','Hello')
                     }
                     post {
                         always {
@@ -69,7 +69,7 @@ stages {
                         label "build-server2"
                     }
                     steps {
-                        ValidateApp('http://35.154.222.77:8080/')
+                        ValidateApp('http://35.154.222.77:8080/','Hello')
                     }
                     post {
                         always {
