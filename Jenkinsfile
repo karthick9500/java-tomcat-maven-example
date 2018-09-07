@@ -20,10 +20,10 @@ stages {
     steps {
       parallel(
         a: {
-          echo "docker build  -t karthick9500/sape-poc-1:1 ."
+          sh 'docker build  -t karthick9500/sape-poc-1:1 .'
         },
         b: {
-          echo "docker build  -t karthick9500/sape-poc-2:1 ."
+          sh 'docker build  -t karthick9500/sape-poc-2:1 .'
         }
       )
     }
