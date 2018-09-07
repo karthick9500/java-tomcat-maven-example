@@ -7,6 +7,8 @@ environment {
     DOCKER_COMMON_CREDS = credentials('a05e481d-4987-4a51-8569-41fc1a47e11e')
 }
   
+  
+  
 stages {
 
   stage("Init"){
@@ -81,6 +83,15 @@ stages {
   }
   
   
+  stage('ShutDown') {
+        steps {
+            script {                
+                env.SHUTDOWN = input message: 'User input required',
+                ok: 'Shutdown!',
+                parameters: [choice(name: 'App to shutdown', choices: "APP1\nAPP2\nBOTH\nNONE", description: 'Which app you want to shutdown?')]
+            }
+        }
+    }
   
     
     
