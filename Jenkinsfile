@@ -17,7 +17,7 @@ stages {
   }
     
     
-  stage('Run Tests') {
+  stage('Build') {
             parallel {
                 stage('Build app1') {
                     agent any
