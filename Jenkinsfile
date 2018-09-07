@@ -13,8 +13,19 @@ stages {
       {
         sh 'echo "Initialize"'
         sh 'docker login -u $DOCKER_COMMON_CREDS_USR -p $DOCKER_COMMON_CREDS_PSW'
-        sh 'docker build  -t karthick9500/sape-poc-1:1 .'
-        sh 'docker build  -t karthick9500/java-poc-2:1 .'
+        
+        parallel(
+          a: {
+            sh 'docker build  -t karthick9500/sape-poc-1:1 .'
+          },
+          b: {
+            sh 'docker build  -t karthick9500/java-poc-2:1 .'
+          }  
+        )
+        
+        
+        
+        
       }
     }
 }
