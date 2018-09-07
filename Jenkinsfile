@@ -86,13 +86,19 @@ stages {
   stage('ShutDown') {
         steps {
             script {                
-                env.SHUTDOWN = input message: 'User input required',
+                env.APP_SHUTDOWN = input message: 'User input required',
                 ok: 'Shutdown!',
                 parameters: [choice(name: 'App to shutdown', choices: "APP1\nAPP2\nBOTH\nNONE", description: 'Which app you want to shutdown?')]
             }
         }
     }
   
+  
+  stage('Process Shutdown'){
+        steps{
+          PerformShutdown(${env.$APP_SHUTDOWN})
+        }
+    }
     
     
     
