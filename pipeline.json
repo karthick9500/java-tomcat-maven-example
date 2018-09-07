@@ -2,13 +2,13 @@
 	"applciations": [{
 			"app_name": "app1",
 			"endpoint": "/",
-      "port": "8080"
+			"port": "8080",
 			"content": "HELLO WORLD APP1"
 		},
 		{
 			"app_name": "app2",
 			"endpoint": "/",
-      "port": "8081"
+			"port": "8081",
 			"content": "HELLO WORLD APP2"
 		}
 	]
