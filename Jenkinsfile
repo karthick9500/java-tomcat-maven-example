@@ -105,7 +105,7 @@ stages {
   
   stage('Process Shutdown'){
         steps{
-          PerformShutdown(${env.$APP_SHUTDOWN})
+          PerformShutdown('app1')
         }
     }
     
