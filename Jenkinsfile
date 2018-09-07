@@ -14,13 +14,9 @@ environment {
 stages {
 
   stage("Init"){
-       steps
-      {
-        sh 'echo "Initialize"'
-        sh 'docker login -u $DOCKER_COMMON_CREDS_USR -p $DOCKER_COMMON_CREDS_PSW'
-      }
-    
       steps {
+              sh 'echo "Initialize"'
+              sh 'docker login -u $DOCKER_COMMON_CREDS_USR -p $DOCKER_COMMON_CREDS_PSW'
               script {
                 echo "Loading JSON configuration from : ${env.WORKSPACE}/pipeline.json"
                 inputFile = readFile("${env.WORKSPACE}/pipeline.json")
