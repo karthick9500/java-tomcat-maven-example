@@ -16,33 +16,19 @@ stages {
       }
   }
     
-    
-  stage('Build') {
-            parallel {
-                stage('Build app1') {
-                    agent any
-                    steps {
-                        sh 'docker build  -t karthick9500/sape-poc-1:1 .'
-                    }
-                    post {
-                        always {
-                            sh 'echo "test"'
-                        }
-                    }
-                }
-                stage('Build app 2') {
-                    agent  any
-                    steps {
-                        sh 'docker build  -t karthick9500/sape-poc-2:1 .'
-                    }
-                    post {
-                        always {
-                            sh 'echo "test"'
-                        }
-                    }
-                }
-            }
+  stage('run-parallel-branches') {
+    steps {
+      parallel(
+        a: {
+          echo "docker build  -t karthick9500/sape-poc-1:1 ."
+        },
+        b: {
+          echo "docker build  -t karthick9500/sape-poc-2:1 ."
         }
+      )
+    }
+  }
+  
     
     
     
