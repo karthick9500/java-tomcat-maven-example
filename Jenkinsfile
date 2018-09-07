@@ -1,4 +1,6 @@
 @Library('shared-library@master') _
+import groovy.json.JsonSlurperClassic
+
 pipeline {
 
 agent any
@@ -17,6 +19,17 @@ stages {
         sh 'echo "Initialize"'
         sh 'docker login -u $DOCKER_COMMON_CREDS_USR -p $DOCKER_COMMON_CREDS_PSW'
       }
+    
+      steps {
+              script {
+                echo "Loading JSON configuration from : ${env.WORKSPACE}/pipeline.json"
+                inputFile = readFile("${env.WORKSPACE}/pipeline.json")
+                parsedJson = new JsonSlurperClassic().parseText(inputFile)
+                echo "Done Loading JSON configuration"
+                
+            }
+      }
+    
   }
     
   stage('Build') {
@@ -30,7 +43,7 @@ stages {
                     }
                     post {
                         always {
-                            sh 'echo "test"'
+                            sh 'echo "done"'
                         }
                     }
                 }
@@ -43,7 +56,7 @@ stages {
                     }
                     post {
                         always {
-                            sh 'echo "test"'
+                            sh 'echo "done"'
                         }
                     }
                 }
@@ -58,7 +71,7 @@ stages {
                         label "build-server1"
                     }
                     steps {
-                        ValidateApp('http://35.154.222.77:8080/','Hello')
+                        ValidateApp(parsedJson,'app1')
                     }
                     post {
                         always {
@@ -71,7 +84,7 @@ stages {
                         label "build-server2"
                     }
                     steps {
-                        ValidateApp('http://35.154.222.77:8080/','Hello')
+                        ValidateApp(parsedJson,'app2')
                     }
                     post {
                         always {
