@@ -16,18 +16,70 @@ stages {
       }
   }
     
-  stage('run-parallel-branches') {
-    steps {
-      parallel(
-        a: {
-          sh 'docker build  -t karthick9500/sape-poc-1:1 .'
-        },
-        b: {
-          sh 'docker build  -t karthick9500/sape-poc-2:1 .'
-        }
-      )
-    }
+  stage('Build') {
+            parallel {
+                stage('Build app1') {
+                    agent {
+                        label "build-server1"
+                    }
+                    steps {
+                        sh 'docker build  -t karthick9500/sape-poc-1:1 .'
+                    }
+                    post {
+                        always {
+                            sh 'echo "test"'
+                        }
+                    }
+                }
+                stage('Build app 2') {
+                    agent {
+                        label "build-server2"
+                    }
+                    steps {
+                        sh 'docker build  -t karthick9500/sape-poc-2:1 .'
+                    }
+                    post {
+                        always {
+                            sh 'echo "test"'
+                        }
+                    }
+                }
+            }
   }
+  
+  
+    stage('Validate') {
+            parallel {
+                stage('Test App1') {
+                    agent {
+                        label "build-server1"
+                    }
+                    steps {
+                        sh 'echo "test"'
+                    }
+                    post {
+                        always {
+                            sh 'echo "test"'
+                        }
+                    }
+                }
+                stage('Test app 2') {
+                    agent {
+                        label "build-server2"
+                    }
+                    steps {
+                        sh 'echo "test"'
+                    }
+                    post {
+                        always {
+                            sh 'echo "test"'
+                        }
+                    }
+                }
+            }
+  }
+  
+  
   
     
     
